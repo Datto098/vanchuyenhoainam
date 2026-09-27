@@ -1,0 +1,35 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+	"manifest_version": 3,
+	"name": "Vận Chuyển Hoài Nam",
+		"version": "3.0.0",
+		"description": "Gửi dữ liệu sản phẩm Trung Quốc tới AI Order Dashboard.",
+	"permissions": ["scripting", "tabs", "storage"],
+	"host_permissions": [
+		"https://vanchuyenhoainam.vn/*",
+		"https://*.taobao.com/*",
+		"https://*.tmall.com/*",
+		"https://*.1688.com/*",
+		"http://localhost:3001/*"
+	],
+	"background": {
+		"service_worker": "background.js"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"https://item.taobao.com/*",
+				"https://detail.tmall.com/*",
+				"https://detail.1688.com/*"
+			],
+			"js": ["content.js"]
+		}
+	],
+	"action": {
+		"default_popup": "popup.html",
+		"default_icon": {
+			"16": "icon.png"
+		}
+	}
+}

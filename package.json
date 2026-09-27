@@ -1,0 +1,13 @@
+{
+  "name": "vanchuyen-hoainam-extension",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev:api": "pnpm --dir dashboard dev:api",
+    "dev:web": "pnpm --dir dashboard dev:web",
+    "check": "node --check content.js && node --check background.js && pnpm --dir dashboard typecheck"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

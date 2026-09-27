@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Taobao Extractor</title>
+		<style>
+			* {
+				box-sizing: border-box;
+			}
+
+			body {
+			font-family: Inter, Arial, sans-serif;
+				background: #121212;
+				color: #ffffff;
+				width: 320px;
+				padding: 20px;
+				text-align: center;
+			}
+
+			.logo {
+				width: 60px;
+				height: 60px;
+				margin: 0 auto 10px;
+			}
+
+			h1 {
+				font-size: 20px;
+				font-weight: 700;
+				margin-bottom: 5px;
+				color: #ff7f00;
+			}
+
+			.tagline {
+				font-size: 14px;
+				color: #ccc;
+				margin-bottom: 20px;
+			}
+
+			.features {
+				text-align: left;
+				margin-bottom: 20px;
+				font-size: 13px;
+				line-height: 1.5;
+				padding: 10px;
+				background: #1e1e1e;
+				border-radius: 10px;
+			}
+
+			.features li {
+				margin-bottom: 5px;
+				list-style: none;
+			}
+
+			.features li::before {
+				content: '✅ ';
+				color: #ff7f00;
+			}
+
+			.links a {
+				display: inline-block;
+				margin: 5px;
+				color: #ffb366;
+				text-decoration: none;
+				font-weight: 600;
+				font-size: 13px;
+			}
+
+			.links a:hover {
+				text-decoration: underline;
+			}
+
+			.footer {
+				font-size: 11px;
+				color: #666;
+				margin-top: 20px;
+			}
+		</style>
+	</head>
+	<body>
+		<img class="logo" src="icon.png" alt="Logo" />
+		<h1>Vận Chuyển Hoài Nam</h1>
+		<p class="tagline">
+			Công cụ hỗ trợ Đặt hàng Trung Quốc dễ dàng và tiện lợi
+		</p>
+
+		<ul class="features">
+			<li>Tự động lấy thông tin sản phẩm</li>
+				<li>AI phân tích sản phẩm và SKU</li>
+				<li>Tùy chỉnh ghi chú đơn hàng</li>
+				<li>Theo dõi task và chi phí tập trung</li>
+		</ul>
+
+		<div class="links">
+				<a href="https://vanchuyenhoainam.vn/" target="_blank">Website</a>
+				<a href="https://vanchuyenhoainam.vn/gio-hang" target="_blank">Giỏ hàng</a>
+				<a href="http://localhost:3000/ai-orders" target="_blank">Dashboard</a>
+		</div>
+
+			<div class="footer">Vận Chuyển Hoài Nam · AI Order</div>
+	</body>
+</html>

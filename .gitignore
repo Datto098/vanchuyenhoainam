@@ -1,0 +1,4 @@
+dashboard/data/store.json
+dashboard/data/store.json.tmp
+dashboard/data/secrets.json
+.env
