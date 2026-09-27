@@ -1,0 +1,24 @@
+import eslint from '@eslint/js';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import globals from 'globals';
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+  { ignores: ['dist/**'] },
+  eslint.configs.recommended,
+  ...tseslint.configs.recommendedTypeChecked,
+  eslintConfigPrettier,
+  {
+    languageOptions: {
+      globals: { ...globals.node, ...globals.jest },
+      parserOptions: {
+        project: ['./tsconfig.json', './tsconfig.test.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-floating-promises': 'error',
+    },
+  },
+);

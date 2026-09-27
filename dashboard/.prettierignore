@@ -1,0 +1,11 @@
+node_modules
+dist
+.next
+coverage
+.env
+.env.*
+*.log
+*.tsbuildinfo
+pnpm-lock.yaml
+apps/api/src/modules/storage/credentials/
+*.md

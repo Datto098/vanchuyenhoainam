@@ -1,0 +1,42 @@
+{
+  "name": "auto-tags",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "pnpm@11.8.0",
+  "scripts": {
+    "clean": "pnpm -r clean",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "build:shared": "pnpm --filter @auto-tags/shared-types build",
+    "typecheck:shared": "pnpm --filter @auto-tags/shared-types typecheck",
+    "typecheck:api": "pnpm build:shared && pnpm --filter @auto-tags/api typecheck",
+    "typecheck:web": "pnpm build:shared && pnpm --filter @auto-tags/web typecheck",
+    "typecheck": "pnpm build:shared && pnpm -r typecheck",
+    "lint:api": "pnpm --filter @auto-tags/api lint",
+    "lint:web": "pnpm --filter @auto-tags/web lint",
+    "lint": "pnpm lint:api && pnpm lint:web",
+    "test:api:unit": "pnpm --filter @auto-tags/api test:unit",
+    "test:api:integration": "pnpm --filter @auto-tags/api test:integration",
+    "test:api": "pnpm --filter @auto-tags/api test",
+    "test": "pnpm -r test",
+    "build:api": "pnpm build:shared && pnpm --filter @auto-tags/api build && pnpm --filter @auto-tags/api check:prod-entry",
+    "build:web": "pnpm build:shared && pnpm --filter @auto-tags/web build",
+    "build": "pnpm build:shared && pnpm --filter @auto-tags/api build && pnpm --filter @auto-tags/api check:prod-entry && pnpm --filter @auto-tags/web build",
+    "check": "pnpm format:check && pnpm typecheck && pnpm lint && pnpm test && pnpm build",
+    "predev:api": "pnpm build:shared",
+    "dev:api": "pnpm --filter @auto-tags/api start:dev",
+    "dev:web": "pnpm --filter @auto-tags/web dev",
+    "seed:admin": "pnpm build:shared && pnpm --filter @auto-tags/api seed:admin",
+    "db:migrate": "pnpm --filter @auto-tags/api db:migrate",
+    "deploy:build:api": "bash deployInfo/api/test/build.sh",
+    "deploy:build:web": "bash deployInfo/web/test/build.sh",
+    "deploy:api": "bash deployInfo/api/test/deploy.sh",
+    "deploy:web": "bash deployInfo/web/test/deploy.sh",
+    "deploy:test": "bash deployInfo/deploy-all.sh",
+    "deploy:nginx": "bash deployInfo/nginx/install.sh"
+  },
+  "devDependencies": {
+    "@types/node": "^26.5.0",
+    "prettier": "^3.9.6"
+  }
+}
