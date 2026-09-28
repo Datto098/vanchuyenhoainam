@@ -21,6 +21,7 @@
     "test": "pnpm -r test",
     "build:api": "pnpm build:shared && pnpm --filter @auto-tags/api build && pnpm --filter @auto-tags/api check:prod-entry",
     "build:web": "pnpm build:shared && pnpm --filter @auto-tags/web build",
+    "build:extension": "node scripts/build-extension.mjs",
     "build": "pnpm build:shared && pnpm --filter @auto-tags/api build && pnpm --filter @auto-tags/api check:prod-entry && pnpm --filter @auto-tags/web build",
     "check": "pnpm format:check && pnpm typecheck && pnpm lint && pnpm test && pnpm build",
     "predev:api": "pnpm build:shared",
@@ -33,10 +34,16 @@
     "deploy:api": "bash deployInfo/api/test/deploy.sh",
     "deploy:web": "bash deployInfo/web/test/deploy.sh",
     "deploy:test": "bash deployInfo/deploy-all.sh",
-    "deploy:nginx": "bash deployInfo/nginx/install.sh"
+    "deploy:nginx": "bash deployInfo/nginx/install.sh",
+    "deploy:datto": "bash deployInfo/datto.sh app",
+    "deploy:datto:api": "bash deployInfo/datto.sh api",
+    "deploy:datto:web": "bash deployInfo/datto.sh web",
+    "deploy:datto:nginx": "bash deployInfo/datto.sh nginx",
+    "deploy:datto:full": "bash deployInfo/datto.sh full"
   },
   "devDependencies": {
     "@types/node": "^26.5.0",
+    "javascript-obfuscator": "^5.8.0",
     "prettier": "^3.9.6"
   }
 }

@@ -10,12 +10,12 @@ POST https://vanchuyenhoainam.vn/src/api/cart/add
 
 ```text
 Chrome extension
-  → POST http://localhost:3001/api/extension/tasks
+  → POST https://api-agent.dttech.site/api/extension/tasks
   → NestJS + MongoDB + OpenAI Responses API
   → POST https://vanchuyenhoainam.vn/src/api/cart/add
 
-Next.js dashboard: http://localhost:3000/ai-orders
-AI settings:       http://localhost:3000/ai-settings
+Next.js dashboard: https://agent.dttech.site/ai-orders
+AI settings:       https://agent.dttech.site/ai-settings
 ```
 
 ## Chạy local
@@ -33,13 +33,13 @@ pnpm dev:api
 pnpm dev:web
 ```
 
-Sau đó reload extension trong `chrome://extensions`. Extension hiện gọi:
+Khi chạy local, dashboard/API vẫn dùng cổng `3000`/`3001`. Bản extension đóng gói cho production gọi:
 
 ```js
-const DASHBOARD_API_BASE = 'http://localhost:3001/api';
+const DASHBOARD_API_BASE = 'https://api-agent.dttech.site/api';
 ```
 
-Đổi URL này và host permission trong `manifest.json` khi deploy production.
+Popup extension mở dashboard tại `https://agent.dttech.site/ai-orders`; `manifest.json` chỉ cấp quyền API cho `https://api-agent.dttech.site/*`.
 
 ## Biến môi trường
 
@@ -69,3 +69,13 @@ Mỗi lần gọi OpenAI lưu input/output/cached tokens, latency và estimated 
 pnpm --dir dashboard typecheck
 pnpm --dir dashboard lint
 ```
+
+## Đóng gói extension production
+
+Không phát hành trực tiếp thư mục `extension/`. Tạo bản minify/obfuscate không kèm source map:
+
+```bash
+pnpm build:extension
+```
+
+File phát hành được tạo tại `release/extension.zip`. Source JavaScript được làm rối và các string được mã hóa trong string array; source gốc vẫn nằm trong `extension/` để phát triển.

@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/../../.." && pwd)"
 ARTIFACT_DIR="$ROOT_DIR/.deploy/web-test"
-: "${NEXT_PUBLIC_API_URL:?Set NEXT_PUBLIC_API_URL, for example https://api.example.com/api}"
+: "${NEXT_PUBLIC_API_URL:?Set NEXT_PUBLIC_API_URL, for example https://api-agent.dttech.site/api}"
 export NEXT_PUBLIC_API_URL
 
 cd "$ROOT_DIR"

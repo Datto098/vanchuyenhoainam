@@ -1,6 +1,5 @@
 const LOGIN_ORIGIN = 'https://vanchuyenhoainam.vn';
-// Development URL. Change this and manifest host_permissions for production.
-const DASHBOARD_API_BASE = 'http://localhost:3001/api';
+const DASHBOARD_API_BASE = 'https://api-agent.dttech.site/api';
 const TASK_POLL_INTERVAL_MS = 1500;
 const TASK_POLL_TIMEOUT_MS = 90000;
 let orderSubmissionInProgress = false;

@@ -23,6 +23,6 @@ tar -czf "$BUNDLE" -C "$ARTIFACT_DIR" .
 ssh "${SSH_ARGS[@]}" "$SSH_TARGET" "mkdir -p '$TEMP_DIR' '$DEPLOY_DIR' && rm -rf '$TEMP_DIR'/*"
 scp "${SCP_ARGS[@]}" "$BUNDLE" "$SSH_TARGET:$TEMP_DIR/app.tar.gz"
 ssh "${SSH_ARGS[@]}" "$SSH_TARGET" "cd '$TEMP_DIR' && tar -xzf app.tar.gz && rm app.tar.gz && rsync -a --delete --exclude='node_modules' ./ '$DEPLOY_DIR/'"
-ssh "${SSH_ARGS[@]}" "$SSH_TARGET" "cd '$DEPLOY_DIR' && rm -rf '$DEPLOY_DIR/node_modules' && npm install --omit=dev --no-audit --no-fund && pm2 startOrReload ecosystem.config.cjs --update-env && pm2 save"
+ssh "${SSH_ARGS[@]}" "$SSH_TARGET" "cd '$DEPLOY_DIR' && rm -rf '$DEPLOY_DIR/node_modules' && CXXFLAGS='-Wno-error=attributes' npm install --omit=dev --no-audit --no-fund && node dist/scripts/migrate-database.js && node dist/scripts/seed-admin.js && pm2 startOrReload ecosystem.config.cjs --update-env && pm2 save"
 
 echo "API deployed to $SSH_TARGET:$DEPLOY_DIR"

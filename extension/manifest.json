@@ -11,7 +11,7 @@
 		"https://*.taobao.com/*",
 		"https://*.tmall.com/*",
 		"https://*.1688.com/*",
-		"http://localhost:3001/*"
+		"https://api-agent.dttech.site/*"
 	],
 	"background": {
 		"service_worker": "background.js"

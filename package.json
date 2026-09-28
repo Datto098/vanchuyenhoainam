@@ -5,7 +5,13 @@
   "scripts": {
     "dev:api": "pnpm --dir dashboard dev:api",
     "dev:web": "pnpm --dir dashboard dev:web",
-    "check": "node --check content.js && node --check background.js && pnpm --dir dashboard typecheck"
+    "build:extension": "pnpm --dir dashboard build:extension",
+    "deploy:datto": "pnpm --dir dashboard deploy:datto",
+    "deploy:datto:api": "pnpm --dir dashboard deploy:datto:api",
+    "deploy:datto:web": "pnpm --dir dashboard deploy:datto:web",
+    "deploy:datto:nginx": "pnpm --dir dashboard deploy:datto:nginx",
+    "deploy:datto:full": "pnpm --dir dashboard deploy:datto:full",
+    "check": "node --check extension/content.js && node --check extension/background.js && pnpm --dir dashboard typecheck"
   },
   "engines": {
     "node": ">=22"

@@ -13,9 +13,8 @@ module.exports = {
       max_memory_restart: '1G',
       env: {
         NODE_ENV: 'production',
-        API_PORT: 3006,
-        WEBHOOK_LOG_CUSTOMER_INPUTS: 'true',
-        LOG_PRETTY: 'true',
+        API_PORT: 3016,
+        LOG_PRETTY: 'false',
       },
     },
   ],

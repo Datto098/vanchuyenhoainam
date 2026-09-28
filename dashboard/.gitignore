@@ -5,6 +5,7 @@ coverage
 .env
 .env.local
 .env.deploy
+.env.production
 .env.shopify-deploy
 *.log
 *.tsbuildinfo
