@@ -1,5 +1,7 @@
 const LOGIN_ORIGIN = 'https://vanchuyenhoainam.vn';
 const DASHBOARD_API_BASE = 'https://api-agent.dttech.site/api';
+const PRIVACY_POLICY_URL = 'https://agent.dttech.site/privacy/extension';
+const PRIVACY_CONSENT_VERSION = '2026-09-29';
 const TASK_POLL_INTERVAL_MS = 1500;
 const TASK_POLL_TIMEOUT_MS = 90000;
 let orderSubmissionInProgress = false;
@@ -77,6 +79,48 @@ function createOrderUi() {
 		outline: 'none',
 	});
 
+	const disclosure = document.createElement('label');
+	Object.assign(disclosure.style, {
+		display: 'flex',
+		alignItems: 'flex-start',
+		gap: '8px',
+		padding: '10px',
+		borderRadius: '7px',
+		backgroundColor: '#fff7ed',
+		border: '1px solid #fed7aa',
+		color: '#7c2d12',
+		fontSize: '12px',
+		lineHeight: '1.45',
+		boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+	});
+
+	const consentCheckbox = document.createElement('input');
+	consentCheckbox.id = 'privacy-consent';
+	consentCheckbox.type = 'checkbox';
+	consentCheckbox.style.marginTop = '2px';
+	consentCheckbox.addEventListener('change', () => {
+		if (consentCheckbox.checked) {
+			chrome.storage.local.set({ privacyConsentVersion: PRIVACY_CONSENT_VERSION });
+			return;
+		}
+		chrome.storage.local.remove('privacyConsentVersion');
+	});
+	chrome.storage.local.get('privacyConsentVersion', (result) => {
+		consentCheckbox.checked = result.privacyConsentVersion === PRIVACY_CONSENT_VERSION;
+	});
+
+	const disclosureText = document.createElement('span');
+	disclosureText.append('Tôi đồng ý gửi ID tài khoản, URL, thông tin, ảnh và lựa chọn sản phẩm cùng ghi chú tới Vận Chuyển Hoài Nam và dịch vụ AI để xử lý đơn. ');
+	const privacyLink = document.createElement('a');
+	privacyLink.href = PRIVACY_POLICY_URL;
+	privacyLink.target = '_blank';
+	privacyLink.rel = 'noopener noreferrer';
+	privacyLink.textContent = 'Chính sách quyền riêng tư';
+	privacyLink.style.color = '#c2410c';
+	privacyLink.style.textDecoration = 'underline';
+	disclosureText.appendChild(privacyLink);
+	disclosure.append(consentCheckbox, disclosureText);
+
 	const actions = document.createElement('div');
 	Object.assign(actions.style, { display: 'flex', gap: '8px' });
 
@@ -91,7 +135,7 @@ function createOrderUi() {
 	});
 
 	actions.append(orderButton, cartButton);
-	container.append(noteInput, actions);
+	container.append(noteInput, disclosure, actions);
 	document.body.appendChild(container);
 }
 
@@ -343,9 +387,13 @@ function buildPageSnapshot() {
 		snapshotRoot.appendChild(clone);
 	}
 
-	const controls = Array.from(
-		document.querySelectorAll('input, textarea, select, [role="spinbutton"]')
-	)
+	const controls = candidates
+		.flatMap((candidate) => [
+			...(candidate.matches('input, textarea, select, [role="spinbutton"]')
+				? [candidate]
+				: []),
+			...candidate.querySelectorAll('input, textarea, select, [role="spinbutton"]'),
+		])
 		.filter((element) => element.id !== 'user-note')
 		.slice(0, 200)
 		.map((element) => ({
@@ -404,6 +452,12 @@ function setTaskStatus(message, state = 'working') {
 
 async function submitOrderTask(button) {
 	if (orderSubmissionInProgress) return;
+	const consentCheckbox = document.getElementById('privacy-consent');
+	if (!consentCheckbox?.checked) {
+		setTaskStatus('Vui lòng đọc và đồng ý với chính sách quyền riêng tư trước khi gửi.', 'error');
+		return;
+	}
+	await chrome.storage.local.set({ privacyConsentVersion: PRIVACY_CONSENT_VERSION });
 	orderSubmissionInProgress = true;
 	const originalLabel = button.textContent;
 	button.disabled = true;

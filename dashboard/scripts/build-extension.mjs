@@ -10,7 +10,7 @@ const releaseDir = resolve(projectDir, 'release');
 const outputDir = resolve(releaseDir, 'extension');
 const zipPath = resolve(releaseDir, 'extension.zip');
 const manifest = JSON.parse(readFileSync(resolve(sourceDir, 'manifest.json'), 'utf8'));
-const javascriptFiles = ['background.js', 'content.js'];
+const javascriptFiles = ['background.js', 'content.js', 'login-content.js'];
 
 rmSync(outputDir, { recursive: true, force: true });
 rmSync(zipPath, { force: true });

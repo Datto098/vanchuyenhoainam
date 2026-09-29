@@ -3,9 +3,9 @@
 
 	"manifest_version": 3,
 	"name": "Vận Chuyển Hoài Nam",
-		"version": "3.0.0",
+		"version": "3.0.2",
 		"description": "Gửi dữ liệu sản phẩm Trung Quốc tới AI Order Dashboard.",
-	"permissions": ["scripting", "tabs", "storage"],
+	"permissions": ["storage"],
 	"host_permissions": [
 		"https://vanchuyenhoainam.vn/*",
 		"https://*.taobao.com/*",
@@ -17,6 +17,11 @@
 		"service_worker": "background.js"
 	},
 	"content_scripts": [
+		{
+			"matches": ["https://vanchuyenhoainam.vn/*"],
+			"js": ["login-content.js"],
+			"run_at": "document_idle"
+		},
 		{
 			"matches": [
 				"https://item.taobao.com/*",

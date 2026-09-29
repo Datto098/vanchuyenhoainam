@@ -11,7 +11,7 @@
     "deploy:datto:web": "pnpm --dir dashboard deploy:datto:web",
     "deploy:datto:nginx": "pnpm --dir dashboard deploy:datto:nginx",
     "deploy:datto:full": "pnpm --dir dashboard deploy:datto:full",
-    "check": "node --check extension/content.js && node --check extension/background.js && pnpm --dir dashboard typecheck"
+    "check": "node --check extension/content.js && node --check extension/background.js && node --check extension/login-content.js && pnpm --dir dashboard typecheck"
   },
   "engines": {
     "node": ">=22"
